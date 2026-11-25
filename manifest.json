@@ -1,0 +1,420 @@
+{
+  "skills": [
+    {
+      "id": "activity",
+      "path": "skills/activity"
+    },
+    {
+      "id": "attach-session",
+      "path": "skills/attach-session"
+    },
+    {
+      "id": "authenticate-user",
+      "path": "skills/authenticate-user"
+    },
+    {
+      "id": "banner-design",
+      "path": "skills/banner-design"
+    },
+    {
+      "id": "brainstorming",
+      "path": "skills/brainstorming"
+    },
+    {
+      "id": "brand",
+      "path": "skills/brand"
+    },
+    {
+      "id": "bug-hunt",
+      "path": "skills/bug-hunt"
+    },
+    {
+      "id": "cavecrew",
+      "path": "skills/cavecrew"
+    },
+    {
+      "id": "caveman",
+      "path": "skills/caveman"
+    },
+    {
+      "id": "caveman-commit",
+      "path": "skills/caveman-commit"
+    },
+    {
+      "id": "caveman-compress",
+      "path": "skills/caveman-compress"
+    },
+    {
+      "id": "caveman-discover",
+      "path": "skills/caveman-discover"
+    },
+    {
+      "id": "caveman-evidence-review",
+      "path": "skills/caveman-evidence-review"
+    },
+    {
+      "id": "caveman-explore",
+      "path": "skills/caveman-explore"
+    },
+    {
+      "id": "caveman-help",
+      "path": "skills/caveman-help"
+    },
+    {
+      "id": "caveman-learn",
+      "path": "skills/caveman-learn"
+    },
+    {
+      "id": "caveman-manage",
+      "path": "skills/caveman-manage"
+    },
+    {
+      "id": "caveman-optimize",
+      "path": "skills/caveman-optimize"
+    },
+    {
+      "id": "caveman-review",
+      "path": "skills/caveman-review"
+    },
+    {
+      "id": "caveman-setup",
+      "path": "skills/caveman-setup"
+    },
+    {
+      "id": "caveman-stats",
+      "path": "skills/caveman-stats"
+    },
+    {
+      "id": "defi-auto-repay",
+      "path": "skills/defi-auto-repay"
+    },
+    {
+      "id": "design",
+      "path": "skills/design"
+    },
+    {
+      "id": "design-system",
+      "path": "skills/design-system"
+    },
+    {
+      "id": "diagnosing-superpowers",
+      "path": "skills/diagnosing-superpowers"
+    },
+    {
+      "id": "dispatching-parallel-agents",
+      "path": "skills/dispatching-parallel-agents"
+    },
+    {
+      "id": "executing-plans",
+      "path": "skills/executing-plans"
+    },
+    {
+      "id": "fetch-tweet",
+      "path": "skills/fetch-tweet"
+    },
+    {
+      "id": "finishing-a-development-branch",
+      "path": "skills/finishing-a-development-branch"
+    },
+    {
+      "id": "form-session-delegation",
+      "path": "skills/form-session-delegation"
+    },
+    {
+      "id": "frontend-design",
+      "path": "skills/frontend-design"
+    },
+    {
+      "id": "hackathon-idea-forge",
+      "path": "skills/hackathon-idea-forge"
+    },
+    {
+      "id": "investigate-first",
+      "path": "skills/investigate-first"
+    },
+    {
+      "id": "kite-discovery",
+      "path": "skills/kite-discovery"
+    },
+    {
+      "id": "kite-passport",
+      "path": "skills/kite-passport"
+    },
+    {
+      "id": "lean-build",
+      "path": "skills/lean-build"
+    },
+    {
+      "id": "loops-agents-on-open-rails",
+      "path": "skills/loops-agents-on-open-rails"
+    },
+    {
+      "id": "manage-agents",
+      "path": "skills/manage-agents"
+    },
+    {
+      "id": "migration",
+      "path": "skills/migration"
+    },
+    {
+      "id": "okx-agent-payments-protocol",
+      "path": "skills/okx-agent-payments-protocol"
+    },
+    {
+      "id": "okx-agentic-wallet",
+      "path": "skills/okx-agentic-wallet"
+    },
+    {
+      "id": "okx-ai",
+      "path": "skills/okx-ai"
+    },
+    {
+      "id": "okx-dapp-discovery",
+      "path": "skills/okx-dapp-discovery"
+    },
+    {
+      "id": "okx-defi",
+      "path": "skills/okx-defi"
+    },
+    {
+      "id": "okx-dex",
+      "path": "skills/okx-dex"
+    },
+    {
+      "id": "okx-growth-competition",
+      "path": "skills/okx-growth-competition"
+    },
+    {
+      "id": "okx-guide",
+      "path": "skills/okx-guide"
+    },
+    {
+      "id": "passport-overview",
+      "path": "skills/passport-overview"
+    },
+    {
+      "id": "passport-setup",
+      "path": "skills/passport-setup"
+    },
+    {
+      "id": "playwriter",
+      "path": "skills/playwriter"
+    },
+    {
+      "id": "ponytail",
+      "path": "skills/ponytail"
+    },
+    {
+      "id": "ponytail-audit",
+      "path": "skills/ponytail-audit"
+    },
+    {
+      "id": "ponytail-debt",
+      "path": "skills/ponytail-debt"
+    },
+    {
+      "id": "ponytail-gain",
+      "path": "skills/ponytail-gain"
+    },
+    {
+      "id": "ponytail-help",
+      "path": "skills/ponytail-help"
+    },
+    {
+      "id": "ponytail-review",
+      "path": "skills/ponytail-review"
+    },
+    {
+      "id": "receiving-code-review",
+      "path": "skills/receiving-code-review"
+    },
+    {
+      "id": "report-feedback",
+      "path": "skills/report-feedback"
+    },
+    {
+      "id": "request-session",
+      "path": "skills/request-session"
+    },
+    {
+      "id": "requesting-code-review",
+      "path": "skills/requesting-code-review"
+    },
+    {
+      "id": "roblox-horror-film-pipeline",
+      "path": "skills/roblox-horror-film-pipeline"
+    },
+    {
+      "id": "safe-refactor",
+      "path": "skills/safe-refactor"
+    },
+    {
+      "id": "shopping",
+      "path": "skills/shopping"
+    },
+    {
+      "id": "slides",
+      "path": "skills/slides"
+    },
+    {
+      "id": "subagent-driven-development",
+      "path": "skills/subagent-driven-development"
+    },
+    {
+      "id": "surgical-patch",
+      "path": "skills/surgical-patch"
+    },
+    {
+      "id": "systematic-debugging",
+      "path": "skills/systematic-debugging"
+    },
+    {
+      "id": "test-driven-development",
+      "path": "skills/test-driven-development"
+    },
+    {
+      "id": "ui-styling",
+      "path": "skills/ui-styling"
+    },
+    {
+      "id": "ui-ux-pro-max",
+      "path": "skills/ui-ux-pro-max"
+    },
+    {
+      "id": "upgrade-passport",
+      "path": "skills/upgrade-passport"
+    },
+    {
+      "id": "use-railway",
+      "path": "skills/use-railway"
+    },
+    {
+      "id": "using-git-worktrees",
+      "path": "skills/using-git-worktrees"
+    },
+    {
+      "id": "using-superpowers",
+      "path": "skills/using-superpowers"
+    },
+    {
+      "id": "vara-agent-network-skills",
+      "path": "skills/vara-agent-network-skills"
+    },
+    {
+      "id": "vara-skills",
+      "path": "skills/vara-skills"
+    },
+    {
+      "id": "verification-before-completion",
+      "path": "skills/verification-before-completion"
+    },
+    {
+      "id": "verify-and-stop",
+      "path": "skills/verify-and-stop"
+    },
+    {
+      "id": "wallet-send",
+      "path": "skills/wallet-send"
+    },
+    {
+      "id": "writing-plans",
+      "path": "skills/writing-plans"
+    },
+    {
+      "id": "writing-skills",
+      "path": "skills/writing-skills"
+    },
+    {
+      "id": "x402-execute",
+      "path": "skills/x402-execute"
+    },
+    {
+      "id": "xlayer-agent-skill",
+      "path": "skills/xlayer-agent-skill"
+    },
+    {
+      "id": "imagegen",
+      "path": "skills/imagegen"
+    },
+    {
+      "id": "openai-docs",
+      "path": "skills/openai-docs"
+    },
+    {
+      "id": "skill-creator",
+      "path": "skills/skill-creator"
+    },
+    {
+      "id": "skill-installer",
+      "path": "skills/skill-installer"
+    },
+    {
+      "id": "vox-demo-video",
+      "path": "skills/vox-demo-video"
+    },
+    {
+      "id": "yt-animation-skill",
+      "path": "skills/yt-animation-skill"
+    },
+    {
+      "id": "cloud-environment/cloud-desktop",
+      "path": "skills/cloud-environment/cloud-desktop"
+    },
+    {
+      "id": "cloud-environment/runtime",
+      "path": "skills/cloud-environment/runtime"
+    },
+    {
+      "id": "pages/maintain-space",
+      "path": "skills/pages/maintain-space"
+    },
+    {
+      "id": "pages/manage-schedules",
+      "path": "skills/pages/manage-schedules"
+    },
+    {
+      "id": "pages/organize-space",
+      "path": "skills/pages/organize-space"
+    },
+    {
+      "id": "pages/write-page",
+      "path": "skills/pages/write-page"
+    },
+    {
+      "id": "sites/sites",
+      "path": "skills/sites/sites"
+    },
+    {
+      "id": "sites/sites-remix",
+      "path": "skills/sites/sites-remix"
+    },
+    {
+      "id": "work-pets/create-pet",
+      "path": "skills/work-pets/create-pet"
+    },
+    {
+      "id": "work-pets/pets",
+      "path": "skills/work-pets/pets"
+    },
+    {
+      "id": "work-pets/update-pet",
+      "path": "skills/work-pets/update-pet"
+    },
+    {
+      "id": "plugin-management/plugin-management",
+      "path": "skills/plugin-management/plugin-management"
+    },
+    {
+      "id": "visualize/visualize",
+      "path": "skills/visualize/visualize"
+    }
+  ],
+  "excluded_files": [],
+  "sanitized_files": [
+    {
+      "path": "skills/roblox-horror-film-pipeline/scripts/ai33_client.py",
+      "change": "Replaced embedded API credential with YOUR_AI33_API_KEY placeholder."
+    }
+  ],
+  "skill_definitions": 127
+}

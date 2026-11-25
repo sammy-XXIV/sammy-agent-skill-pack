@@ -1,0 +1,4 @@
+interface:
+  display_name: "YT Animation Skill"
+  short_description: "Cinematic Blender production for animated stories"
+  default_prompt: "Use $yt-animation-skill to direct and produce my screenplay as a stylized cinematic 3D semi-realistic animation."

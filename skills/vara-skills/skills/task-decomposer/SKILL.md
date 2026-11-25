@@ -1,0 +1,35 @@
+---
+name: task-decomposer
+description: Use when approved spec and architecture artifacts must become an ordered implementation plan for Gear or Vara work. Do not use when the architecture is still unsettled or when the request is only asking for a high-level idea.
+---
+
+# Task Decomposer
+
+## Overview
+
+Break the approved spec and architecture into a small, reviewable task plan for disciplined implementation.
+
+If the work targets a released contract or a new deployed contract version, include compatibility, cutover, and off-chain follow-up tasks instead of treating the change as code-only implementation.
+
+## Start Here
+
+Use `../../assets/task-plan-template.md` as the output shape.
+
+Write the result to `docs/plans/YYYY-MM-DD-<topic>-tasks.md`.
+
+## Workflow
+
+1. Confirm both the spec and architecture artifacts exist.
+2. Split work into dependency-ordered tasks with clear handoff points.
+3. Attach explicit verification steps and review checkpoints to each task.
+4. Make gtest expectations and artifact updates part of the task order.
+5. If the work changes a released contract surface, add explicit tasks for compatibility review, generated-client updates, and frontend/indexer cutover where relevant.
+6. Record rollback notes for risky or stateful changes.
+
+## Guardrails
+
+- Keep tasks small enough for TDD and frequent commits.
+- Do not merge planning, coding, and validation into one step.
+- Make prereqs explicit instead of relying on tribal knowledge.
+- Keep the plan executable from the artifact chain alone.
+- Do not hide release and compatibility work inside a generic “update contract” task.

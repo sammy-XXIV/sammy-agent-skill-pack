@@ -1,0 +1,123 @@
+# Sails Gtest And Local Validation
+
+## Canonical `gtest` Harness
+
+- Prefer the Sails-first path built around `GtestEnv` and generated clients.
+- A typical harness creates one `System`, funds the sender, submits the Wasm, builds `GtestEnv`, and deploys the program through the generated constructor path.
+- Use generated client methods for normal command and query assertions.
+
+## Raw `gtest` Escape Hatch
+
+- When you must debug below the generated client layer, remember the raw flow:
+  - `Program::send_bytes*` returns a `MessageId`
+  - `System::run_next_block()` returns a `BlockRunResult`
+  - `BlockRunResult.log()` contains the reply log entries for that block
+  - `BlockRunResult.failed` is the fast failure set for sent messages
+- Use `run_to_block` when delayed sends or multi-block progress matter more than a single next-block reply.
+
+## `BlockRunMode` Semantics
+
+- `Auto`: run enough blocks to extract tracked replies automatically.
+- `Next`: advance one block per reply extraction attempt; useful when timing matters.
+- `Manual`: no automatic block running, so the test must call block-advance methods explicitly.
+
+Pick `Next` or `Manual` for timing-sensitive flows, delayed work, reply absence, redirects, or wait/reservation behavior.
+
+## What To Assert
+
+- Happy-path command and query behavior
+- Typed events through listener flow where the service exposes events
+- Reply and timeout behavior for async paths
+- Gas, value, or reservation-sensitive results when accounting matters
+- Real route or codec bugs with a low-level byte path only when generated clients are insufficient
+
+## Event Listener Pattern
+
+- If the service declares `#[service(events = ...)]`, prefer asserting events through the generated listener API.
+- In Sails 1.0, the service client implements `Listener` directly, without creating a separate listener object.
+- A common flow is:
+  - obtain the service client
+  - start listening before the command that should emit the event: `client.listen().await`
+  - call the command
+  - read the next event from the stream and assert its typed payload
+- Event assertions should be tied to the block that successfully executed the producing command.
+
+## Sails-Specific Edge Cases
+
+- `ReplyIsMissing` often means the wrong `BlockRunMode` or missing block advancement.
+- `UserspacePanic` can appear after an async path that already waited or sent internally.
+- A timeout result does not prove a later reply hook never runs.
+- Event assertions should happen after the producing block and only expect events on successful execution.
+- If you drop to raw `gtest`, inspect the matching `MessageId` in the `BlockRunResult` instead of expecting a direct typed return value.
+
+## Local Smoke — Primary Path (vara-wallet)
+
+The fastest local smoke path uses `vara-wallet` for deployment and interaction. No Rust tooling needed beyond building the `.opt.wasm`.
+
+1. Start or reuse a local node on the default port (ws://localhost:9944).
+2. Set the local endpoint: `vara-wallet --network local` (per-command), `vara-wallet config set network local` (persists), or `export VARA_WS=ws://localhost:9944` (session). The default is mainnet — always override for local work.
+3. Import a funded dev account: `vara-wallet --network local wallet import --seed '//Alice' --name alice`.
+4. Deploy the `.opt.wasm` artifact with IDL-based constructor encoding:
+   ```bash
+   UPLOAD=$(vara-wallet --account alice program upload ./target/wasm32-unknown-unknown/release/my_program.opt.wasm --idl ./my_program.idl --args '[]')
+   PROGRAM_ID=$(echo $UPLOAD | jq -r .programId)
+   ```
+   If the constructor does non-trivial work, add `--gas-limit <n>`. Use `--init <name>` when the IDL has multiple constructors.
+   - **Post-deploy verification:** If the service exposes a query, call it immediately after deploy to verify the constructor ran. An uninitialized program returns default or empty state, or panics.
+5. If the program uses delayed messages, transfer VARA to the program address: `vara-wallet --account alice transfer $PROGRAM_ID 100`.
+6. Exercise one command and one query:
+   ```bash
+   vara-wallet --account alice call $PROGRAM_ID MyService/DoSomething --args '["hello"]' --idl ./my_program.idl
+   vara-wallet call $PROGRAM_ID MyService/GetState --args '[]' --idl ./my_program.idl
+   ```
+7. Use local dev accounts such as `//Alice` and `//Bob` only for local smoke, and keep seed phrases or private keys out of committed docs.
+
+## Local Smoke — Secondary Path (Rust gclient)
+
+Use this path when the project already has a Rust test harness built on `gclient` and `GclientEnv`. For new projects, prefer the vara-wallet path above.
+
+1. Start or reuse a local node.
+2. Connect with `GearApi`:
+
+```rust
+use gclient::{GearApi, WSAddress};
+
+// Local node on default port (ws://127.0.0.1:9944):
+let api = GearApi::init(WSAddress::dev()).await?;
+
+// Custom port — port goes in the second arg, NOT in the URL:
+let api = GearApi::init(WSAddress::new("ws://127.0.0.1", 9944)).await?;
+```
+
+Common API confusions:
+
+- `GclientEnv` has no `upload_code` method. Use `GearApi` directly for code upload and program deployment, then wrap in `GclientEnv` for typed client calls.
+- `GearApi::dev_from_path()` expects a filesystem path to the node binary, not a WebSocket URL.
+- `WSAddress::new(url, port)` — the port is the second argument. Do not embed the port in the URL string.
+
+3. Wrap the API in `GclientEnv` or the equivalent generated-client environment.
+4. Upload the `.opt.wasm`, deploy with a unique salt, and record the real program id. If the constructor does non-trivial work, override gas with an explicit limit — default `calculateGas()` may be insufficient.
+5. If the program uses delayed messages, transfer VARA to the program address before exercising commands. Unlike `gtest`, on-chain programs need balance to pay for future gas.
+6. Use the generated client for one command and one query path.
+7. Use local dev accounts such as `//Alice` and `//Bob` only for local smoke, and keep seed phrases or private keys out of committed docs.
+
+## JS/TS Deploy Pitfalls
+
+When deploying via the Sails JS client (`@gear-js/api` or `sails-js`):
+
+- `tx.withAccount(keyringPair)` — pass the keyring pair directly. Do not wrap it: `{ signer: keyringPair }` causes "Invalid signer interface" errors.
+- If init fails with "Program has been terminated," the constructor ran out of gas. Override with `tx.withGas(200_000_000_000n)` or higher.
+- Programs that schedule delayed messages need VARA balance. After deploy, transfer funds: `api.balance.transfer(programId, amount)`.
+- Prefer `newCtorFromCode()` from the generated Sails client, which handles code upload and init in one transaction.
+
+## Setup Ergonomics
+
+- `sails_rs::gtest::constants` such as `DEFAULT_USER_ALICE`, `DEFAULT_USERS_INITIAL_BALANCE`, and `UNITS` improve readability in ordinary happy-path tests.
+- Treat them as convenience fixtures, not as part of the behavioral contract under test.
+- Use explicit custom accounts or balances when the test depends on caller identity, funding asymmetry, or boundary conditions.
+
+## Guardrails
+
+- Do not invent the deployed program id, voucher id, or account addresses.
+- Do not treat local-node smoke as a substitute for `gtest`.
+- Keep the smoke path typed unless you are isolating a transport bug.
